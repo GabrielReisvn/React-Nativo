@@ -1,0 +1,90 @@
+// Etapa 1: Inicio do projeto - Tela inicial
+
+//tela inicial e {rota/}
+import { StyleSheet, Text, View, ScrollView, FlatList, Pressable } from "react-native";
+
+// View: componente de contêiner para layout
+// Text: componente para exibir texto
+// StyleSheet: para criar estilos
+// ScrollView: para criar uma área rolável
+// FlatList: para renderizar listas de dados
+// Pressable: para criar botões interativos
+
+import { useState } from "expo-router";
+// useState: hook para gerenciar estado no componente
+
+import {GameCard} from "../components/GameCard";
+// Reutilizar componentes, isso evita duplicação de código e facilita a manutenção do aplicativo
+
+import { jogos } from "../data/jogos";
+// Importando um array de objetos que contém informações sobre jogos, como título, descrição e imagem.
+
+import { cores } from "../data/tema";
+// Importando um objeto que contém cores usadas no aplicativo, como cores de fundo, texto e botões.
+
+// =====================================
+export default function inicio() {
+  //obteos o objeto de navegação
+  const router = useRouter();
+
+  //=====================================
+  //BLOCO 1 - PREPARAÇÃO DE DADOS
+  //=====================================
+
+
+  // Filtra os jogos que são destaques, criando um novo array chamado "destaques" que contém apenas os jogos com a propriedade "destaque" definida como true.
+  const destaques = jogos.filter((jogo) => jogo.destaque);
+
+  const populares = [...jogos].sort((a, b) => b.popularidade - a.popularidade).slice(0, 5);
+  // ...jogos cria uma copia do array originaç
+  // sort((a, b) => b.popularidade - a.popularidade) ordena os jogos em ordem decrescente de popularidade
+  // slice(0, 5) seleciona os cinco primeiros jogos do array ordenado, que são os mais populares.
+
+  //=====================================
+  //BLOCO 2 - ESTRUTURA DE LAYOUT
+  //=====================================
+
+  return (
+    //inicio do jsx retornado pelo componente: defie oque sera renderizado na tela
+    <ScrollView style={styles.container}> contentContainerStyle={styles.conteudo}>
+     {/* ScrollView : container com conteúdo rolável */}
+     <Text style={styles.title}>Bem-vindo ao App de Jogos!</Text>
+     {/* ScrollView : container com conteúdo rolável */}
+     
+     <Text style={styles.subtitle}>Explore os destaques e os jogos mais populares.</Text>
+
+      </ScrollView>
+  );
+  
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    padding: 24,
+  },
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    maxWidth: 960,
+    marginHorizontal: "auto",
+  },
+  title: {
+    fontSize: 64,
+    fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 36,
+    color: "#38434D",
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  countText: {
+    fontSize: 24,
+    marginTop: 20,
+  },
+});
