@@ -46,45 +46,45 @@ export default function inicio() {
 
   return (
     //inicio do jsx retornado pelo componente: defie oque sera renderizado na tela
-    <ScrollView style={styles.container}> contentContainerStyle={styles.conteudo}>
+    <ScrollView 
+      style={styles.container} 
+      contentContainerStyle={styles.conteudo}
+      >
      {/* ScrollView : container com conteúdo rolável */}
      <Text style={styles.title}>Bem-vindo ao App de Jogos!</Text>
      {/* ScrollView : container com conteúdo rolável */}
      
      <Text style={styles.subtitle}>Explore os destaques e os jogos mais populares.</Text>
 
+  //=====================================
+  //BLOCO 2 - Seção jogos em destaque
+  //=====================================
+  <Text style={styles.sectionTitle}>Jogos em Destaque</Text>
+  {/* FlatList: componente para renderizar listas de dados de forma eficiente */}
+  
+  <FlatList
+    data={destaques}
+    //define o array de dados que será renderizado na lista
+
+    keyExtractor={(item) => item.id.toString()}
+
+    //define a função que extrai a chave única de cada item da lista, usando o id do jogo
+    horizontal
+
+    //define que a lista será renderizada horizontalmente
+    showsHorizontalScrollIndicator={false}
+    //define que o indicador de rolagem horizontal não será exibido
+
+    renderItem={({ item }) => <GameCard jogo={item}/>}
+    //define a função que renderiza cada item da lista, usando o componente GameCard e passando o objeto do jogo como prop
+    />
+
+  //=====================================
+  //BLOCO 2 - Seção jogos em destaque
+  //===================================== 
+
+
       </ScrollView>
   );
   
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  countText: {
-    fontSize: 24,
-    marginTop: 20,
-  },
-});
