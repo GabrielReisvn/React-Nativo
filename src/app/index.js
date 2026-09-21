@@ -20,6 +20,7 @@ import { jogos } from "../data/jogos";
 // Importando um array de objetos que contém informações sobre jogos, como título, descrição e imagem.
 
 import { cores } from "../data/tema";
+import { Background } from "expo-router/build/react-navigation";
 // Importando um objeto que contém cores usadas no aplicativo, como cores de fundo, texto e botões.
 
 // =====================================
@@ -80,11 +81,85 @@ export default function inicio() {
     />
 
   //=====================================
-  //BLOCO 2 - Seção jogos em destaque
-  //===================================== 
+  //BLOCO 2.2 - Seção jogos populares 
+  //=====================================
+    {/* mesma estrutura, mudando os dados */}
+  <Text style={styles.sectionTitle}>Jogos Populares</Text>
+  {/* tituloDA SEGUNDA SEÇÃO, REAPROVEITANDO O MESMO ESTILO */}
+  <FlatList
+    data={populares}
+    //define o array de dados que será renderizado na lista
+    keyExtractor={(item) => item.id}
+    //define a função que extrai a chave única de cada item da lista, usando o id do jogo
+    horizontal
+    //define que a lista será renderizada horizontalmente
+    showsHorizontalScrollIndicator={false}
+    //define que o indicador de rolagem horizontal não será exibido
+    renderItem={({ item }) => <GameCard jogo={item}/>}
+    //define a função que renderiza cada item da lista, usando o componente GameCard e passando o objeto do jogo como prop
+  />
+  //=====================================
+  //BLOCO 2.3 - Seção 'Ver todos os jogos'
+  //=====================================
+    {/* pressable oferece mais controle sobre estilo e feedback */}
+  <Pressable 
+  style={styles.button}
+  //aplica estilo visual
+  onPress={() => router.push('./jogos')}
+  //onPresss; função executada quando botão é pressionado
+  //router.push('./jogos') navega para a rota /jogos, que exibe a lista completa de jogos
+  >
+
+    <Text style={styles.buttonText}>Ver todos os jogos</Text>
+    {/* texto do botão */}
+  </Pressable>
 
 
       </ScrollView>
   );
   
 }
+//=====================================
+//Bloco 3; estilos
+//=====================================
+const styles = Stylesheet.create({
+  container: {
+    flex :1,
+    BackgroundColor: cores.fundo,
+  },
+  conteudo: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: cores.textoPrincipal
+  }, 
+  subtitle: {
+    fontSize: 15,
+    color: cores.textoSecundario,
+    marginTop: 4,
+    marginBottom: 24,
+
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: cores.textoPrincipal,
+    marginTop: 8,
+    marginBottom: 12,
+  },
+  button: {
+    BackgroundColor: cores.roxo,
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop:24,
+  },
+  buttonText: {
+    color: cores.textoPrincipal,
+    fontSize: 16,
+    fontWeight: 'bold'
+  }
+})
